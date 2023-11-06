@@ -5,7 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usuarios</title>
+<<<<<<< HEAD
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+=======
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+>>>>>>> 6335d655867b95f2ec0c06fbe0d6eebb3033f116
     <?php require 'funciones/depurar.php' ?>
     <?php require 'funciones/base_datos_tienda.php' ?>
 </head>
@@ -14,7 +19,11 @@
     <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $temp_usuario = depurar($_POST["usuario"]);
+<<<<<<< HEAD
         $temp_contrasena = depurar($_POST["contrasena"]);
+=======
+        $contrasena = depurar($_POST["contrasena"]);
+>>>>>>> 6335d655867b95f2ec0c06fbe0d6eebb3033f116
         $temp_nacimiento = depurar($_POST["fecha_nacimiento"]);
 
         # Validación de usuario
@@ -39,6 +48,10 @@
                 $contrasena = $temp_contrasena;
                 $contrasena_cifrada = password_hash($contrasena, PASSWORD_DEFAULT);
             }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6335d655867b95f2ec0c06fbe0d6eebb3033f116
         }
 
         # Validación fecha nacimiento
@@ -64,16 +77,26 @@
                 <form action="" method="POST">
                     <label class="form-label">Usuario</label>
                     <input class="form-control" type="text" name="usuario">
+<<<<<<< HEAD
                     <?php if (isset($err_usuario)) echo $err_usuario ?>
             </div>
             <div class="mb-3">
                 <label class="form-label">Contraseña</label>
                 <input class="form-control" type="password" name="contrasena">
                 <?php if (isset($err_contrasena)) echo $err_contrasena ?>
+=======
+                    <?php if(isset($err_usuario)) echo $err_usuario ?>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Contraseña</label>
+                <input class="form-control" type="text" name="contrasena">
+                <?php if(isset($err_contrasena)) echo $err_contrasena ?>
+>>>>>>> 6335d655867b95f2ec0c06fbe0d6eebb3033f116
             </div>
             <div class="mb-3">
                 <label class="form-label">Fecha de nacimiento</label>
                 <input class="form-date" type="date" name="fecha_nacimiento">
+<<<<<<< HEAD
                 <?php if (isset($err_fecha_nacimiento)) echo $err_fecha_nacimiento ?>
             </div>
             <input type="submit" value="Registrar">
@@ -94,6 +117,12 @@
             }
             ?>
 
+=======
+                <?php if(isset($err_fecha_nacimiento)) echo $err_fecha_nacimiento ?>
+            </div>
+            <input type="submit" value="Registrar">
+            </form>
+>>>>>>> 6335d655867b95f2ec0c06fbe0d6eebb3033f116
         </div>
     </div>
 </body>

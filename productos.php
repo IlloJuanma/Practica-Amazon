@@ -13,6 +13,10 @@
 
 <body>
     <div class="container">
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6335d655867b95f2ec0c06fbe0d6eebb3033f116
         <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $temp_nombre = depurar($_POST["nombre"]);
@@ -20,12 +24,15 @@
             $temp_descripcion = depurar($_POST["descripcion"]);
             $temp_cantidad = depurar($_POST["cantidad"]);
 
+<<<<<<< HEAD
             # Imagen
             $nombre_imagen = $_FILES["imagen"]["name"];
             $ruta_temporal = $_FILES["imagen"]["tmp_name"];
             $ruta_final = "img/" . $nombre_imagen;
             move_uploaded_file( $ruta_temporal, $ruta_final );
 
+=======
+>>>>>>> 6335d655867b95f2ec0c06fbe0d6eebb3033f116
             #Validación de nombre
             if (strlen($temp_nombre) == 0) {
                 $err_nombre = "El nombre es obligatorio";
@@ -34,7 +41,11 @@
                     $err_nombre = "El nombre no puede tener más de 
                     40 caracteres";
                 } else {
+<<<<<<< HEAD
                     $patron = "/^[a-zA-Z0-9áÁéÉíÍóÓúÚñÑ ]{0,40}$/";
+=======
+                    $patron = "/^[a-zA-Z0-9 ]{0,40}$/";
+>>>>>>> 6335d655867b95f2ec0c06fbe0d6eebb3033f116
                     if (!preg_match($patron, $temp_nombre)) {
                         $err_nombre = "El nombre solo puede tener letras ó números";
                     } else {
@@ -68,11 +79,17 @@
                     $err_descripcion = "La descripción no puede tener más de 255 caracteres";
                 } else {
                     $descripcion = $temp_descripcion;
+<<<<<<< HEAD
 
                 }
             }
 
 
+=======
+                }
+            }
+
+>>>>>>> 6335d655867b95f2ec0c06fbe0d6eebb3033f116
             #Validar la cantidad
             if (strlen($temp_cantidad) == 0) {
                 $err_cantidad = "La cantidad es obligatoria";
@@ -86,17 +103,25 @@
                 }
             }
         }
+<<<<<<< HEAD
         
 
         ?>
         <div class="col-9">
             <legend>Inserta Producto</legend>
+=======
+
+        ?>
+        <div class="col-9">
+            <h2>Inserta Producto</h2>
+>>>>>>> 6335d655867b95f2ec0c06fbe0d6eebb3033f116
             <form action="" method="POST">
                 <div class="mb-3">
                     <label class="form-label">Nombre Producto</label>
                     <input class="form-control" type="text" name="nombre">
                     <?php if (isset($err_nombre))
                         echo $err_nombre ?>
+<<<<<<< HEAD
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Precio</label>
@@ -143,3 +168,31 @@
 </body>
 
 </html>
+=======
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Precio</label>
+                        <input class="form-control" type="text" name="precio">
+                    <?php if (isset($err_precio))
+                        echo $err_precio ?>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Descripción</label>
+                        <input class="form-control" type="text" name="descripcion">
+                    <?php if (isset($err_descripcion))
+                        echo $err_descripcion ?>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Cantidad</label>
+                        <input class="form-control" type="text" name="cantidad">
+                    <?php if (isset($err_cantidad))
+                        echo $err_cantidad ?>
+                    </div>
+                    <input type="submit" value="Registrar">
+                </form>
+            </div>
+        </div>
+    </body>
+
+    </html>
+>>>>>>> 6335d655867b95f2ec0c06fbe0d6eebb3033f116
