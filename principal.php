@@ -10,12 +10,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow&family=Cinzel&family=Satisfy&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/principal.css">
-    <?php require 'objetos/productos.php' ?>
+    <?php require 'objetos/producto.php' ?>
     <?php require 'funciones/base_datos_tienda.php' ?>
 </head>
 
 <body>
     <?php
+
     session_start();
 
     if (isset($_SESSION["usuario"])) {
@@ -23,9 +24,8 @@
     } else {
         header("Location: login.php");
     }
-
-
     ?>
+
     <header>
         <div class="container pagina_principal">
             <h1>Página principal</h1>
@@ -85,11 +85,12 @@
                                     <li><a class="dropdown-item" href="https://github.com/IlloJuanma"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                                 <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
-                                            </svg> Ropa</a></li>
+                                            </svg> Ropa</a>
+                                    </li>
                                 </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#contacto" class="nav-link">Contacto</a>
+                                <li class="nav-item">
+                                    <a href="cerrar_sesion.php">Cerrar sesión</a>
+                                </li>
                             </li>
                         </ul>
                     </div>
@@ -167,10 +168,11 @@
                             echo "<td>" . $producto->precio . "</td>";
                             echo "<td>" . $producto->descripcion . "</td>";
                             echo "<td>" . $producto->cantidad . "</td>";
+                            echo "<td>";
                         ?>
-                            <img width="50" height="100" src="<?php echo $fila["imagen"] ?>">
+                            <img width="180" height="150" src="<?php echo $producto->imagen ?>">
                         <?php
-                            echo "<td>" . $producto->imagen . "</td>";
+                            echo "</td>";
                             echo "</tr>";
                         };
 

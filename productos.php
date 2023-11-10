@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Productos</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <?php require 'funciones/depurar.php' ?>
     <?php require 'funciones/base_datos_tienda.php' ?>
 </head>
@@ -24,7 +23,7 @@
             $nombre_imagen = $_FILES["imagen"]["name"];
             $ruta_temporal = $_FILES["imagen"]["tmp_name"];
             $ruta_final = "img/" . $nombre_imagen;
-            move_uploaded_file( $ruta_temporal, $ruta_final );
+            move_uploaded_file($ruta_temporal, $ruta_final);
 
             #Validación de nombre
             if (strlen($temp_nombre) == 0) {
@@ -43,13 +42,11 @@
                         $nombre = $temp_nombre;
                     }
                 }
-
             }
 
             #Validar el precio
             if (strlen($temp_precio) == 0) {
                 $err_precio = "El precio es obligatorio";
-
             } else {
                 if ($temp_precio > 99999.99) {
                     $err_precio = "El precio no debe ser mayor a 99999,99";
@@ -68,7 +65,6 @@
                     $err_descripcion = "La descripción no puede tener más de 255 caracteres";
                 } else {
                     $descripcion = $temp_descripcion;
-
                 }
             }
 
@@ -86,55 +82,54 @@
                 }
             }
         }
-        
+
 
         ?>
         <div class="col-9">
             <legend>Inserta Producto</legend>
-            <form action="" method="POST">
+            <form action="" method="POST" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label class="form-label">Nombre Producto</label>
                     <input class="form-control" type="text" name="nombre">
                     <?php if (isset($err_nombre))
                         echo $err_nombre ?>
-<<<<<<< HEAD
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Precio</label>
                     <input class="form-control" type="text" name="precio">
                     <?php if (isset($err_precio))
                         echo $err_precio ?>
-                <div class="mb-3">
-                    <label class="form-label">Descripción</label>
-                    <input class="form-control" type="text" name="descripcion">
-                    <?php if (isset($err_descripcion))
-                        echo $err_descripcion ?>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Cantidad</label>
-                    <input class="form-control" type="text" name="cantidad">
-                    <?php if (isset($err_cantidad))
-                        echo $err_cantidad ?>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Imagen</label>
-                    <input class="form-control" type="file" name="imagen">
-                </div>
-                <input type="submit" value="Registrar">
+                    <div class="mb-3">
+                        <label class="form-label">Descripción</label>
+                        <input class="form-control" type="text" name="descripcion">
+                        <?php if (isset($err_descripcion))
+                            echo $err_descripcion ?>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Cantidad</label>
+                        <input class="form-control" type="text" name="cantidad">
+                        <?php if (isset($err_cantidad))
+                            echo $err_cantidad ?>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Imagen</label>
+                        <input class="form-control" type="file" name="imagen">
+                    </div>
+                    <input type="submit" value="Registrar">
             </form>
             <?php
-            if(isset($nombre) && isset($precio) && isset($descripcion) && isset($cantidad)){
+            if (isset($nombre) && isset($precio) && isset($descripcion) && isset($cantidad)) {
                 echo "<h3>Nombre: $nombre</h3>";
                 echo "<h3>Precio: $precio</h3>";
                 echo "<h3>Descripción: $descripcion</h3>";
                 echo "<h3>Cantidad: $cantidad</h3>";
                 echo "<h2>Completado</h2>";
-                
+
                 $sql = "INSERT INTO productos (nombreProducto, precio, descripcion,
                                                 cantidad, imagen)
                         VALUES('$nombre','$precio','$descripcion','$cantidad','$ruta_final')";
-                
-                $conexion -> query($sql);
+
+                $conexion->query($sql);
             }
             ?>
         </div>
@@ -143,10 +138,3 @@
 </body>
 
 </html>
-=======
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Precio</label>
-                        <input class="form-control" type="text" name="precio">
-                    <?php if (isset($err_precio))
-                        echo $err_precio ?>

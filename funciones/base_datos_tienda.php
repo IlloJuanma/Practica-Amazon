@@ -5,8 +5,5 @@
     $_base_de_datos = 'db_tienda';
 
     $conexion = new Mysqli($_servidor, $_usuario, $_contrasena, $_base_de_datos)
-<<<<<<< HEAD
         or die("Error de conexión");
-=======
-        or die("Error de conexión");*/
 ?>
