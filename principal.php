@@ -22,7 +22,8 @@
     if (isset($_SESSION["usuario"])) {
         $usuario = $_SESSION["usuario"];
     } else {
-        header("Location: login.php");
+        $_SESSION["usuario"] = "invitado";
+        $usuario = $_SESSION["usuario"];
     }
     ?>
 
@@ -57,9 +58,13 @@
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="#">Inicio</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#proyectos">Productos</a>
-                            </li>
+
+                            <?php
+                            if ($_SESSION["rol"] == "admin") {    ?>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="productos.php">Productos</a>
+                                </li>
+                            <?php } ?>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Categoria
@@ -88,9 +93,9 @@
                                             </svg> Ropa</a>
                                     </li>
                                 </ul>
-                                <li class="nav-item">
-                                    <a href="cerrar_sesion.php">Cerrar sesión</a>
-                                </li>
+                            <li class="nav-item">
+                                <a class="nav-link bg-primary" href="cerrar_sesion.php">Cerrar sesión</a>
+                            </li>
                             </li>
                         </ul>
                     </div>
@@ -156,27 +161,27 @@
                             <th>Descripcion</th>
                             <th>Cantidad</th>
                             <th>Imagen</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                        foreach ($productos as $producto) {
-                            echo "<tr>";
-                            //Accedemos como en java "pelicula.titulo
-                            echo "<td>" . $producto->idProducto . "</td>";
-                            echo "<td>" . $producto->nombreProducto . "</td>";
-                            echo "<td>" . $producto->precio . "</td>";
-                            echo "<td>" . $producto->descripcion . "</td>";
-                            echo "<td>" . $producto->cantidad . "</td>";
-                            echo "<td>";
-                        ?>
-                            <img width="180" height="150" src="<?php echo $producto->imagen ?>">
-                        <?php
-                            echo "</td>";
-                            echo "</tr>";
-                        };
+                        foreach ($productos as $producto) { ?>
+                            <tr>
+                                <td> <?php echo $producto->idProducto ?> </td>
+                                <td> <?php echo $producto->nombreProducto ?></td>
+                                <td> <?php echo $producto->precio ?></td>
+                                <td> <?php echo $producto->descripcion ?></td>
+                                <td> <?php echo $producto->cantidad ?></td>
+                                <td>
+                                    <img width="180" height="150" src="<?php echo $producto->imagen ?>">
+                                </td>
+                                <td>
 
-                        ?>
+                                </td>
+                            </tr>
+                        <?php
+                        };?>
                     </tbody>
                 </table>
             </div>

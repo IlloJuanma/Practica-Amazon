@@ -13,11 +13,19 @@
 <body>
     <div class="container">
         <?php
+        session_start();
+        
+        if($_SESSION["rol"] != "admin"){
+            header("Location: login.php");
+        }
+
+
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $temp_nombre = depurar($_POST["nombre"]);
             $temp_precio = depurar($_POST["precio"]);
             $temp_descripcion = depurar($_POST["descripcion"]);
             $temp_cantidad = depurar($_POST["cantidad"]);
+
 
             # Imagen
             $nombre_imagen = $_FILES["imagen"]["name"];

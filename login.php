@@ -24,6 +24,7 @@
         } else {
             while ($fila = $resultado->fetch_assoc()) {
                 $contrasena_cifrada = $fila["contrasena"];
+                $rol_temp = $fila["rol"];
             }
 
             $acceso_valido = password_verify($contrasena, $contrasena_cifrada);
@@ -32,6 +33,7 @@
                 echo "<h2>Usuario encontrado</h2>";
                 session_start();
                 $_SESSION["usuario"] = $usuario;
+                $_SESSION["rol"] = $rol_temp;
                 header("Location: principal.php");
             } else {
                 echo "<h2>Contraseña incorrecta</h2>";
