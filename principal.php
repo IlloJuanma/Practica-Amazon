@@ -94,7 +94,7 @@
                                     </li>
                                 </ul>
                             <li class="nav-item">
-                                <a class="nav-link bg-primary" href="cerrar_sesion.php">Cerrar sesión</a>
+                                <a class="nav-link" href="cerrar_sesion.php">Cerrar sesión</a>
                             </li>
                             </li>
                         </ul>

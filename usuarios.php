@@ -5,12 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usuarios</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="icon" type="image/x-icon" href="assets/logo-vt.svg" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <?php require 'funciones/depurar.php' ?>
     <?php require 'funciones/base_datos_tienda.php' ?>
 </head>
 
-<body>
+<body class="bg-info d-flex justify-content-center align-items-center vh-100">
     <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $temp_usuario = depurar($_POST["usuario"]);
@@ -57,45 +59,118 @@
     }
     ?>
 
-    <div class="container">
+    <!-- <div class="container">
         <div class="col-9">
             <h2>Introduce nuevo Usuario</h2>
             <div class="mb-3">
                 <form action="" method="POST">
                     <label class="form-label">Usuario</label>
                     <input class="form-control" type="text" name="usuario">
-                    <?php if (isset($err_usuario)) echo $err_usuario ?>
+                    <?php //if (isset($err_usuario))
+                    //echo $err_usuario ?>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Contraseña</label>
+                    <input class="form-control" type="password" name="contrasena">
+                <?php //if (isset($err_contrasena))
+                //echo $err_contrasena ?>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Fecha de nacimiento</label>
+                    <input class="form-date" type="date" name="fecha_nacimiento">
+                <?php //if (isset($err_fecha_nacimiento))
+                //echo $err_fecha_nacimiento ?>
+                </div>
+                <input type="submit" value="Registrar">
+                </form>
+
+                <?php
+                // if (isset($usuario) && isset($contrasena) && isset($fecha_nacimiento)) {
+                //     echo "<h2>Usuario registrado</h2>";
+                
+                //     $sql1 = "INSERT INTO usuarios (usuario, contrasena, fechaNacimiento)
+                
+                //     VALUES('$usuario', '$contrasena_cifrada', '$fecha_nacimiento')";
+                
+                //     $sql2 = "INSERT INTO cestas (usuario, precioTotal)
+                //     VALUES('$usuario', '0')";
+                
+                //     $conexion->query($sql1);
+                //     $conexion->query($sql2);
+                // }
+                ?>
+
+        </div>
+    </div> -->
+
+    <div class="bg-white p-5 rounded-5 text-secondary shadow" style="width: 25rem">
+        <div class="d-flex justify-content-center">
+            <img src="assets/login-icon.svg" alt="login-icon" style="height: 7rem" />
+        </div>
+        <div class="text-center fs-1 fw-bold">Tōroku shite kudasai</div>
+        <div class="input-group mt-4">
+            <div class="input-group-text bg-info">
+                <img src="assets/user.gif" alt="username-icon" style="height: 1rem" />
             </div>
-            <div class="mb-3">
-                <label class="form-label">Contraseña</label>
-                <input class="form-control" type="password" name="contrasena">
-                <?php if (isset($err_contrasena)) echo $err_contrasena ?>
+            <form action="" method="POST">
+                <input class="form-control bg-light" type="text" placeholder="Usuario" name="usuario" />
+                <?php if (isset($err_usuario))
+                    echo $err_usuario ?>
             </div>
-            <div class="mb-3">
-                <label class="form-label">Fecha de nacimiento</label>
-                <input class="form-date" type="date" name="fecha_nacimiento">
-                <?php if (isset($err_fecha_nacimiento)) echo $err_fecha_nacimiento ?>
+            <div class="input-group mt-1">
+                <div class="input-group-text bg-info">
+                    <img src="assets/password.gif" alt="password-icon" style="height: 1rem" />
+                </div>
+                <input class="form-control bg-light" type="password" placeholder="Contraseña" name="contrasena" />
+            <?php if (isset($err_contrasena))
+                    echo $err_contrasena ?>
             </div>
-            <input type="submit" value="Registrar">
+            <div class="input-group mt-1">
+                <div class="input-group-text bg-info">
+                    <img src="assets/date.gif" alt="password-icon" style="height: 1rem" />
+                </div>
+                <input class="form-control bg-light" type="date" name="fecha_nacimiento" />
+            <?php if (isset($err_fecha_nacimiento))
+                    echo $err_fecha_nacimiento ?>
+            </div>
+            <input class="btn btn-info text-white w-100 mt-4 fw-semibold shadow-sm" type="submit" value="Registrar Usuario">
             </form>
 
             <?php
-            if (isset($usuario) && isset($contrasena) && isset($fecha_nacimiento)) {
+                if (isset($usuario) && isset($contrasena) && isset($fecha_nacimiento)) {
+                    echo "<h2>Usuario registrado</h2>";
 
-                $sql1 = "INSERT INTO usuarios (usuario, contrasena, fechaNacimiento)
+                    $sql1 = "INSERT INTO usuarios (usuario, contrasena, fechaNacimiento)
                                                 
                         VALUES('$usuario', '$contrasena_cifrada', '$fecha_nacimiento')";
 
-                $sql2 = "INSERT INTO cestas (usuario, precioTotal)
+                    $sql2 = "INSERT INTO cestas (usuario, precioTotal)
                         VALUES('$usuario', '0')";
 
-                $conexion->query($sql1);
-                $conexion->query($sql2);
-            }
-            ?>
+                    $conexion->query($sql1);
+                    $conexion->query($sql2);
+                }
+                ?>
+        <div class="d-flex gap-1 justify-content-center mt-1">
+            <div>¿Ya tienes cuenta?</div>
+            <a href="login.php" class="text-decoration-none text-info fw-semibold">Loguearse</a>
+        </div>
 
+        <div class="p-3">
+            <div class="border-bottom text-center" style="height: 0.9rem">
+                <span class="bg-white px-3">Entrar con</span>
+            </div>
+        </div>
+        <div class="btn d-flex gap-2 justify-content-center border mt-3 shadow-sm">
+            <img src="assets/google-icon.svg" alt="google-icon" style="height: 1.6rem" />
+            <div class="fw-semibold text-secondary">Continuar con Google</div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+        </script>
+
 </body>
 
 </html>
