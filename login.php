@@ -89,8 +89,9 @@
                 <div class="pt-1" style="font-size: 0.9rem">Recordar</div>
             </div>
             <div class="pt-1">
-                <a href="https://www.youtube.com/watch?v=ERSsOAR4w6c" target="_blank" class="text-decoration-none text-info fw-semibold fst-italic"
-                    style="font-size: 0.9rem">¿Olvidó la contraseña?</a>
+                <a href="https://www.youtube.com/watch?v=ERSsOAR4w6c" target="_blank"
+                    class="text-decoration-none text-info fw-semibold fst-italic" style="font-size: 0.9rem">¿Olvidó la
+                    contraseña?</a>
             </div>
         </div>
         <input class="btn btn-info text-white w-100 mt-4 fw-semibold shadow-sm" type="submit" value="Iniciar Sesión">
