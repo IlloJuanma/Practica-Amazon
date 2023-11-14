@@ -36,6 +36,9 @@
         $idProducto = $_POST["id_Producto"];
         $usuario = $_SESSION["usuario"];
 
+        //Aqui puedo realizar validaciones si quiero
+
+        // Obtengo el idCestas y la cantidad del usuario actual
         $sqlCesta = "SELECT idCesta FROM cestas WHERE usuario = '$usuario'";
         $resultadoCestas = $conexion->query($sqlCesta);
 
@@ -63,9 +66,9 @@
             $conexion->query($sqlInsert);
         }
 
-        echo "Producto agregado a la cesta correctamente.";
+        $mensajeExito = "Producto añadido a la cesta!!";
     } else {
-        echo "Error: No se encontró la cesta del usuario.";
+        $mensajeError = "Producto no añadido a la cesta, Error!";
     }
 
 
@@ -236,6 +239,7 @@
                             <th>Cantidad</th>
                             <th>Imagen</th>
                             <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -266,14 +270,24 @@
                                         <input class="btn btn-warning" type="submit" value="Añadir">
                                     </form>
 
+
                                 </td>
+
                             </tr>
                             <?php
                         }
                         ; ?>
                     </tbody>
                 </table>
+
             </div>
+
+            <?php
+            if (isset($mensajeExito)) {
+                echo '<div class="mensaje-exito display-3">' . $mensajeExito . '</div>';
+            }
+            ?>
+
         </div>
 
     </section>
