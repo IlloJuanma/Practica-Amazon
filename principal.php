@@ -17,17 +17,13 @@
 </head>
 
 <body>
-
     <?php
-
     session_start();
-
     if (isset($_SESSION["usuario"])) {
         $usuario = $_SESSION["usuario"];
 
     } else {
-        $_SESSION["usuario"] = "invitado";
-        $usuario = $_SESSION["usuario"];
+        header("Location: login.php");
     }
     ?>
 
@@ -37,7 +33,7 @@
         $usuario = $_SESSION["usuario"];
 
         //Aqui puedo realizar validaciones si quiero
-
+    
         // Obtengo el idCestas y la cantidad del usuario actual
         $sqlCesta = "SELECT idCesta FROM cestas WHERE usuario = '$usuario'";
         $resultadoCestas = $conexion->query($sqlCesta);
