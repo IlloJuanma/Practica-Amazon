@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Principal</title>
+    <title>Satoru no noroi</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow&family=Cinzel&family=Satisfy&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="css/principal.css">
+    <link rel="stylesheet" href="css/productos.css">
     <?php require 'objetos/producto.php' ?>
     <?php require 'funciones/base_datos_tienda.php' ?>
 </head>
@@ -21,13 +22,10 @@
     session_start();
     if (isset($_SESSION["usuario"])) {
         $usuario = $_SESSION["usuario"];
-
     } else {
         header("Location: login.php");
     }
-    ?>
 
-    <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION["usuario"])) {
         $idProducto = $_POST["id_Producto"];
         $usuario = $_SESSION["usuario"];
@@ -72,10 +70,10 @@
 
     <header>
         <div class="container pagina_principal">
-            <h1>Página principal</h1>
-            <h2>Bienvenido
+
+            <h1>Bienvenido
                 <?php echo $usuario ?>
-            </h2>
+            </h1>
         </div>
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-dark">
@@ -90,7 +88,7 @@
                             <path d="M12 5v3" />
                             <path d="M18 4.5v15.5" />
                             <path d="M6 4.5v15.5" />
-                        </svg> Tienda Online <svg xmlns="http://www.w3.org/2000/svg"
+                        </svg> Satoru no noroi <svg xmlns="http://www.w3.org/2000/svg"
                             class="icon icon-tabler icon-tabler-torii" width="32" height="32" viewBox="0 0 24 24"
                             stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round"
                             stroke-linejoin="round">
@@ -205,88 +203,114 @@
         </div>
     </section>
     <section>
-        <?php
-        $sql = "SELECT * FROM productos";
-        $resultado = $conexion->query($sql);
-        $productos = [];
-
-        while ($fila = $resultado->fetch_assoc()) {
-            $nuevo_producto = new Producto(
-                $fila["idProducto"],
-                $fila["nombreProducto"],
-                $fila["precio"],
-                $fila["descripcion"],
-                $fila["cantidad"],
-                $fila["imagen"]
-            );
-            array_push($productos, $nuevo_producto);
-        }
-        ?>
         <div class="container">
-            <div class="col-6">
-                <h1>Productos</h1>
-                <table class="table table-striped table-hover">
-                    <thead class="table table-dark">
-                        <tr>
-                            <th>Id</th>
-                            <th>Nombre</th>
-                            <th>Precio</th>
-                            <th>Descripcion</th>
-                            <th>Cantidad</th>
-                            <th>Imagen</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        foreach ($productos as $producto) { ?>
-                            <tr>
-                                <td>
-                                    <?php echo $producto->idProducto ?>
-                                </td>
-                                <td>
-                                    <?php echo $producto->nombreProducto ?>
-                                </td>
-                                <td>
-                                    <?php echo $producto->precio ?>
-                                </td>
-                                <td>
-                                    <?php echo $producto->descripcion ?>
-                                </td>
-                                <td>
-                                    <?php echo $producto->cantidad ?>
-                                </td>
-                                <td>
-                                    <img width="180" height="150" src="<?php echo $producto->imagen ?>">
-                                </td>
-                                <td>
-                                    <form action="" method="POST">
-                                        <input type="hidden" value="<?php echo $producto->idProducto ?>" name="id_Producto">
-                                        <input class="btn btn-warning" type="submit" value="Añadir">
-                                    </form>
+            <div class="row">
+                <aside class="col-md-2">
+                    <div class="anuncio-vertical">
+                        <img class="foto_aside"src="https://picsum.photos/500/1080?=random=1" alt="Anuncio">
+                        <p>Subete no subarashī monogatari wa sōshoku sa reru niataisuru</p>
+                        <a href="#" class="btn btn-primary">Ver</a>
+                    </div>
+                </aside>
 
+                <?php
+                $sql = "SELECT * FROM productos";
+                $resultado = $conexion->query($sql);
+                $productos = [];
 
-                                </td>
+                while ($fila = $resultado->fetch_assoc()) {
+                    $nuevo_producto = new Producto(
+                        $fila["idProducto"],
+                        $fila["nombreProducto"],
+                        $fila["precio"],
+                        $fila["descripcion"],
+                        $fila["cantidad"],
+                        $fila["imagen"]
+                    );
+                    array_push($productos, $nuevo_producto);
+                }
+                ?>
+                <div class="col-md-8">
+                    <div class="col-12">
+                        <h1 class="mt-5 mb-4">Productos</h1>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-primary">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Nombre</th>
+                                        <th>Precio</th>
+                                        <th>Descripcion</th>
+                                        <th>Cantidad</th>
+                                        <th>Imagen</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-group-divider">
+                                    <?php foreach ($productos as $producto) { ?>
+                                        <tr>
+                                            <td class="align-middle text-center">
+                                                <?php echo $producto->idProducto ?>
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <?php echo $producto->nombreProducto ?>
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <?php echo $producto->precio ?>€
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <?php echo $producto->descripcion ?>
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <?php echo $producto->cantidad ?>
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <img class="img-thumbnail img-fluid w-50 mx-auto d-block"
+                                                    src="<?php echo $producto->imagen ?>" alt="Imagen del producto">
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <form action="" method="POST">
+                                                    <input type="hidden" value="<?php echo $producto->idProducto ?>"
+                                                        name="id_Producto">
+                                                    <input class="btn btn-primary" type="submit" value="Añadir">
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
 
-                            </tr>
-                            <?php
-                        }
-                        ; ?>
-                    </tbody>
-                </table>
+                <aside class="col-md-2">
+                    <div class="anuncio-vertical">
+                        <img class ="foto_aside" src="https://picsum.photos/500/1080?=random=2" alt="Anuncio">
+                        <p>Satoshi no ryōiki de tenkai sa reru no wa nigeba no nai basho </p>
+                        <a href="#" class="btn btn-primary">Ver</a>
+                    </div>
+                </aside>
 
             </div>
 
-            <?php
-            if (isset($mensajeExito)) {
-                echo '<div class="mensaje-exito display-3">' . $mensajeExito . '</div>';
-            }
-            ?>
-
-        </div>
+            <?php if (isset($mensajeExito)) {
+                echo '<div class="text-center mensaje-exito display-3">' . $mensajeExito . '</div>';
+            } ?>
 
     </section>
+    <!-- Footer -->
+    <footer class="text-center py-3 miFooter">
+        &copy; Juanma Rodríguez Moreno - <svg xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-brand-alipay" width="44" height="44" viewBox="0 0 24 24"
+            stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M19 3h-14a2 2 0 0 0 -2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2 -2v-14a2 2 0 0 0 -2 -2z" />
+            <path d="M7 7h10" />
+            <path d="M12 3v7" />
+            <path
+                d="M21 17.314c-2.971 -1.923 -15 -8.779 -15 -1.864c0 1.716 1.52 2.55 2.985 2.55c3.512 0 6.814 -5.425 6.814 -8h-6.604" />
+        </svg> Todos los derechos reservados 2023
+    </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
         </script>

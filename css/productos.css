@@ -1,0 +1,112 @@
+/* --- Utilidades --- */
+:root {
+    --azul: #3C76FC;
+    --dorado: #DCD907;
+    --negro: #000000;
+    --colorRadiante: linear-gradient(175deg, rgba(2, 0, 36, 1) 0%, rgba(58, 97, 124, 1) 17%, rgba(0, 212, 255, 1) 100%);
+    --colorBody: linear-gradient(0deg, rgba(0, 0, 0, 1) 17%, rgba(205, 205, 218, 1) 48%, rgba(0, 212, 255, 1) 100%);
+    /* --- Fuentes --- */
+    --fuenteHead: 'Satisfy', cursive;
+    --fuenteBody: 'Archivo Narrow', sans-serif;
+    --fuenteFoot: 'Cinzel', serif;
+}
+body {
+    background: var(--colorRadiante);
+}
+h1 {
+    font-family: var(--fuenteHead);
+    text-align: center;
+    font-size: 45px;
+    text-decoration: underline;
+}
+ul{
+    font-family: var(--fuenteHead);
+    font-size: 30px;
+}
+
+.titulo_nav{
+    font-family: var(--fuenteFoot);
+    font-size: 30px;
+}
+.anuncio-vertical {
+    text-align: center;
+}
+
+.anuncio-vertical img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.anuncio-vertical p {
+    font-size: 20px;
+    color: black;
+}
+
+.anuncio-vertical a {
+    display: inline-block;
+    margin-top: 10px;
+}
+.foto_aside{
+    margin-top: 20px;
+}
+form {
+    text-align: center;
+    background-color: lightblue;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+table th,td{
+    text-align: center;
+    font-family: var(--fuenteBody);
+    font-size: 28px;
+}
+.btn{
+    color: black;
+    font-size: 25px;
+    font-family: var(--fuenteHead);
+}
+
+
+legend {
+    font-family: var(--fuenteBody);
+    font-size: 35px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #007bff;
+    /* Azul Bootstrap */
+}
+label{
+    font-family: var(--fuenteHead);
+    font-size: 25px;
+}
+input[type="text"],
+input[type="file"] {
+    background-color: #ffffff;
+    /* Gris claro */
+    text-align: center;
+    font-size: 18px;
+}
+
+button[type="submit"] {
+    background-color: #28a745;
+    /* Verde Bootstrap */
+    border: 1px solid #218838;
+    /* Borde verde más oscuro */
+    font-family: var(--fuenteBody);
+    font-size: 23px;
+}
+
+button[type="submit"]:hover {
+    background-color: rgb(35, 119, 45);
+    /* Verde más oscuro al pasar el mouse */
+}
+
+/* --- Footer ---*/
+.miFooter {
+    font-family: var(--fuenteHead);
+    color: var(--negro);
+    font-size: 25px;
+}
