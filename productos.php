@@ -5,14 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Productos</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow&family=Cinzel&family=Satisfy&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow&family=Cinzel&family=Satisfy&display=swap" rel="stylesheet">
     <?php require 'funciones/depurar.php' ?>
     <?php require 'funciones/base_datos_tienda.php' ?>
     <link rel="stylesheet" href="css/productos.css">
@@ -35,11 +32,42 @@
         $temp_cantidad = depurar($_POST["cantidad"]);
 
 
+        // # Imagen
+        // $maxSize = 2097152; //2mb
+        // $nombre_imagen = $_FILES["imagen"]["name"];
+        // $ruta_temporal = $_FILES["imagen"]["tmp_name"];
+
+        // if ($_FILES["imagen"]["size"] < $maxSize) {
+
+        //     if ($_FILES["imagen"]["type"] == "image/jpg" || $_FILES["imagen"]["type"] == "image/png" || $_FILES["imagen"]["type"] == "image/jpeg") {
+        //         $ruta_final = "img/" . $nombre_imagen;
+        //         move_uploaded_file($ruta_temporal, $ruta_final);
+        //     } else {
+        //         echo '<h2 class="container">El tipo de la imagen no esta permitido, solo JPG,PNG ó JPEG</h2>';
+        //     }
+        // } else {
+        //     echo "<h2>La imagen es demasiado grande</h2>";
+        // }
+
         # Imagen
+        $maxSize = 2097152; //2mb
         $nombre_imagen = $_FILES["imagen"]["name"];
         $ruta_temporal = $_FILES["imagen"]["tmp_name"];
-        $ruta_final = "img/" . $nombre_imagen;
-        move_uploaded_file($ruta_temporal, $ruta_final);
+
+        if ($_FILES["imagen"]["size"] < $maxSize) {
+
+            if ($_FILES["imagen"]["type"] == "image/jpg" || $_FILES["imagen"]["type"] == "image/png" || $_FILES["imagen"]["type"] == "image/jpeg") {
+                $ruta_final = "img/" . $nombre_imagen;
+                move_uploaded_file($ruta_temporal, $ruta_final);
+            } else {
+                $err_imagen = '<h2>El tipo de la imagen no esta permitido, solo JPG,PNG ó JPEG</h2>';
+            }
+        } else {
+            $err_imagen = '<h2>La imagen es demasiado grande</h2>';
+        }
+
+
+
 
         #Validación de nombre
         if (strlen($temp_nombre) == 0) {
@@ -107,19 +135,14 @@
             <nav class="navbar navbar-expand-lg navbar-dark">
                 <div class="container-fluid">
                     <a class="navbar-brand titulo_nav" href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-torii" width="32"
-                            height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none"
-                            stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-torii" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <path d="M4 4c5.333 1.333 10.667 1.333 16 0" />
                             <path d="M4 8h16" />
                             <path d="M12 5v3" />
                             <path d="M18 4.5v15.5" />
                             <path d="M6 4.5v15.5" />
-                        </svg> Satoru no noroi <svg xmlns="http://www.w3.org/2000/svg"
-                            class="icon icon-tabler icon-tabler-torii" width="32" height="32" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round"
-                            stroke-linejoin="round">
+                        </svg> Satoru no noroi <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-torii" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <path d="M4 4c5.333 1.333 10.667 1.333 16 0" />
                             <path d="M4 8h16" />
@@ -127,9 +150,7 @@
                             <path d="M18 4.5v15.5" />
                             <path d="M6 4.5v15.5" />
                         </svg></a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse texto_nav" id="navbarSupportedContent">
@@ -149,12 +170,9 @@
     <section class="carrousel">
         <div id="carouselExampleCaptions" class="carousel slide">
             <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
-                    aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
-                    aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
-                    aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item active">
@@ -167,13 +185,11 @@
                     <img src="https://picsum.photos/1920/500?=random3" class="d-block w-100" alt="tercera-foto">
                 </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
-                data-bs-slide="prev">
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
-                data-bs-slide="next">
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
@@ -182,48 +198,45 @@
     <section class="container my-4">
         <form action="" method="POST" enctype="multipart/form-data" class="row g-3">
             <legend>
-            <img src="assets/castle.png" alt="password-icon" />
+                <img src="assets/castle.png" alt="password-icon" />
                 Inserta Producto
-            <img src="assets/castle.png" alt="password-icon" />
+                <img src="assets/castle.png" alt="password-icon" />
             </legend>
             <div class="mb-4 col-md-6">
                 <label class="form-label">Nombre Producto</label>
                 <input type="text" class="form-control" name="nombre" required>
-                <?php if (isset($err_nombre))
-                    echo $err_nombre ?>
+                <?php if (isset($err_nombre)) echo $err_nombre ?>
 
-                </div>
-                <div class="mb-4 col-md-6">
-                    <label class="form-label">Precio</label>
-                    <input type="text" class="form-control" name="precio" required>
-                <?php if (isset($err_precio))
-                    echo $err_precio ?>
-                </div>
-                <div class="mb-4 col-md-6">
-                    <label class="form-label">Descripción</label>
-                    <input type="text" class="form-control" name="descripcion">
-                <?php if (isset($err_descripcion))
-                    echo $err_descripcion ?>
-                </div>
-                <div class="mb-4 col-md-6">
-                    <label class="form-label">Cantidad</label>
-                    <input type="text" class="form-control" name="cantidad">
-                <?php if (isset($err_cantidad))
-                    echo $err_cantidad ?>
-                </div>
-                <div class="mb-4">
-                    <label class="form-label">Imagen</label>
-                    <label class="custom-file-upload">
-                        <input type="file" class="form-control" name="imagen">
-                    </label>
-                </div>
-                <div class="col-12">
-                    <button class="btn btn-primary" type="submit">Registrar producto</button>
-                </div>
-            </form>
-        </section>
+            </div>
+            <div class="mb-4 col-md-6">
+                <label class="form-label">Precio</label>
+                <input type="text" class="form-control" name="precio" required>
+                <?php if (isset($err_precio)) echo $err_precio ?>
+            </div>
+            <div class="mb-4 col-md-6">
+                <label class="form-label">Descripción</label>
+                <input type="text" class="form-control" name="descripcion">
+                <?php if (isset($err_descripcion)) echo $err_descripcion ?>
+            </div>
+            <div class="mb-4 col-md-6">
+                <label class="form-label">Cantidad</label>
+                <input type="text" class="form-control" name="cantidad">
+                <?php if (isset($err_cantidad)) echo $err_cantidad ?>
+            </div>
+            <div class="mb-4">
+                <label class="form-label">Imagen</label>
+                <label class="custom-file-upload">
+                    <input type="file" class="form-control mb-4" name="imagen">
+                </label>
+                <?php if (isset($err_imagen)) echo $err_imagen ?>
+            </div>
+            <div class="col-12">
+                <button class="btn btn-primary" type="submit">Registrar producto</button>
+            </div>
+        </form>
+    </section>
 
-        <!-- <div class="col-md-8 offset-md-2">
+    <!-- <div class="col-md-8 offset-md-2">
             <form action="" method="POST" enctype="multipart/form-data">
                 
                     <legend class="mb-4">Inserta Producto</legend>
@@ -254,38 +267,34 @@
                             <input class="btn btn-primary" type="submit" value="Registrar">
         
                 </form> -->
-        <?php
-                if (isset($nombre) && isset($precio) && isset($descripcion) && isset($cantidad)) {
-                    echo "<h3>Nombre: $nombre</h3>";
-                    echo "<h3>Precio: $precio</h3>";
-                    echo "<h3>Descripción: $descripcion</h3>";
-                    echo "<h3>Cantidad: $cantidad</h3>";
-                    echo "<h2>Completado</h2>";
+    <?php
+    if (isset($nombre) && isset($precio) && isset($descripcion) && isset($cantidad) && isset($ruta_final)) {
+        echo "<h3>Nombre: $nombre</h3>";
+        echo "<h3>Precio: $precio</h3>";
+        echo "<h3>Descripción: $descripcion</h3>";
+        echo "<h3>Cantidad: $cantidad</h3>";
+        echo "<h2>Completado</h2>";
 
-                    $sql = "INSERT INTO productos (nombreProducto, precio, descripcion,
+        $sql = "INSERT INTO productos (nombreProducto, precio, descripcion,
                                                 cantidad, imagen)
                         VALUES('$nombre','$precio','$descripcion','$cantidad','$ruta_final')";
 
-                    $conexion->query($sql);
-                }
-                ?>
+        $conexion->query($sql);
+    }
+    ?>
     <!-- Footer -->
     <footer class="text-center py-3 miFooter">
-        &copy; Juanma Rodríguez Moreno - <svg xmlns="http://www.w3.org/2000/svg"
-            class="icon icon-tabler icon-tabler-brand-alipay" width="44" height="44" viewBox="0 0 24 24"
-            stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        &copy; Juanma Rodríguez Moreno - <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-alipay" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <path d="M19 3h-14a2 2 0 0 0 -2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2 -2v-14a2 2 0 0 0 -2 -2z" />
             <path d="M7 7h10" />
             <path d="M12 3v7" />
-            <path
-                d="M21 17.314c-2.971 -1.923 -15 -8.779 -15 -1.864c0 1.716 1.52 2.55 2.985 2.55c3.512 0 6.814 -5.425 6.814 -8h-6.604" />
+            <path d="M21 17.314c-2.971 -1.923 -15 -8.779 -15 -1.864c0 1.716 1.52 2.55 2.985 2.55c3.512 0 6.814 -5.425 6.814 -8h-6.604" />
         </svg> Todos los derechos reservados 2023
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
-        </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    </script>
 
 </body>
 
