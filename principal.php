@@ -26,42 +26,74 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION["usuario"])) {
         $idProducto = $_POST["id_Producto"];
-        $usuario = $_SESSION["usuario"];
+        if ($_POST["accion"] == "aniadir") {
+            $usuario = $_SESSION["usuario"];
 
-        //Aqui puedo realizar validaciones si quiero
 
-        // Obtengo el idCestas y la cantidad del usuario actual
-        $sqlCesta = "SELECT idCesta FROM cestas WHERE usuario = '$usuario'";
-        $resultadoCestas = $conexion->query($sqlCesta);
+            //Aqui puedo realizar validaciones si quiero
 
-        if ($resultadoCestas->num_rows > 0) {
-            $filaCestas = $resultadoCestas->fetch_assoc();
-            $idCesta = $filaCestas["idCesta"];
+            // Obtengo el idCestas y la cantidad del usuario actual
+            $sqlCesta = "SELECT idCesta FROM cestas WHERE usuario = '$usuario'";
+            $resultadoCestas = $conexion->query($sqlCesta);
+
+            if ($resultadoCestas->num_rows > 0) {
+                $filaCestas = $resultadoCestas->fetch_assoc();
+                $idCesta = $filaCestas["idCesta"];
+
+
+                // Verifico si el producto ya está en la cesta
+                $sqlProductoExistente = "SELECT idProducto, cantidad FROM productosCestas WHERE idCesta = '$idCesta' AND idProducto = '$idProducto'";
+                $resultadoProductoExistente = $conexion->query($sqlProductoExistente);
+
+                if ($resultadoProductoExistente->num_rows > 0) {
+                    // Si el producto ya está en la cesta, incremento la cantidad
+                    $filaProductoExistente = $resultadoProductoExistente->fetch_assoc();
+                    $cantidadExistente = $filaProductoExistente["cantidad"];
+                    $nuevaCantidad = $cantidadExistente + 1;
+
+                    // Actualizo la cantidad
+                    $sqlActualizarCantidad = "UPDATE productosCestas SET cantidad = '$nuevaCantidad' WHERE idCesta = '$idCesta' AND idProducto = '$idProducto'";
+                    $conexion->query($sqlActualizarCantidad);
+                } else {
+                    // Si el producto no está en la cesta, inserto un nuevo registro
+                    $sqlInsert = "INSERT INTO productosCestas (idCesta, idProducto, cantidad) VALUES ('$idCesta', '$idProducto', '1')";
+                    $conexion->query($sqlInsert);
+                }
+
+                $mensajeExito = "Producto añadido a la cesta!!";
+            } else {
+                $mensajeError = "Producto no añadido a la cesta, Error!";
+            }
         }
+        if ($_POST["accion"] == "borrar") {
+            $id_Producto = $_POST["id_Producto"];
+            // Vamos a borrar tanto el producto como la cesta y la direccion de la imagen
+            //para que al borrar el producto, borremos la imagen de nuestro pc
+            $sqlBorrarProducto = "SELECT * FROM productos WHERE idProducto = '$id_Producto'";
+            $resultado = $conexion->query($sqlBorrarProducto);
 
-        // Verifico si el producto ya está en la cesta
-        $sqlProductoExistente = "SELECT idProducto, cantidad FROM productosCestas WHERE idCesta = '$idCesta' AND idProducto = '$idProducto'";
-        $resultadoProductoExistente = $conexion->query($sqlProductoExistente);
+            //Si hay filas que leer...
+            if ($resultado->num_rows > 0) {
+                while ($row = $resultado->fetch_assoc()) {
+                    $imagen = $row["imagen"];
+                }
+            }
+            unlink($imagen);
+            //Fin de borrar imagen
 
-        if ($resultadoProductoExistente->num_rows > 0) {
-            // Si el producto ya está en la cesta, incremento la cantidad
-            $filaProductoExistente = $resultadoProductoExistente->fetch_assoc();
-            $cantidadExistente = $filaProductoExistente["cantidad"];
-            $nuevaCantidad = $cantidadExistente + 1;
-
-            // Actualizo la cantidad
-            $sqlActualizarCantidad = "UPDATE productosCestas SET cantidad = '$nuevaCantidad' WHERE idCesta = '$idCesta' AND idProducto = '$idProducto'";
-            $conexion->query($sqlActualizarCantidad);
-        } else {
-            // Si el producto no está en la cesta, inserto un nuevo registro
-            $sqlInsert = "INSERT INTO productosCestas (idCesta, idProducto, cantidad) VALUES ('$idCesta', '$idProducto', '1')";
-            $conexion->query($sqlInsert);
+            //Necesito borrar antes las referencias a ese producto
+            //ya que se relaciona con otra tabla
+            $sqlBorrarCesta = "DELETE FROM productosCestas WHERE idProducto = $id_Producto";
+            $sqlBorrarProducto = "DELETE FROM productos WHERE idProducto = $id_Producto";
+            if ($conexion->query($sqlBorrarCesta) && $conexion->query($sqlBorrarProducto) === TRUE) {
+                //unlink ("img/" . imagen);
+                echo "Producto Borrado Correctamente!!";
+            } else {
+                echo "Error al borrar producto: " . $conn->error();
+            }
         }
-
-        $mensajeExito = "Producto añadido a la cesta!!";
-    } else {
-        $mensajeError = "Producto no añadido a la cesta, Error!";
     }
+
 
 
     ?>
@@ -241,22 +273,25 @@
                                             <td class="align-middle text-center">
                                                 <form action="" method="POST">
                                                     <input type="hidden" value="<?php echo $producto->idProducto ?>" name="id_Producto">
+                                                    <input type="hidden" name="accion" value="aniadir">
                                                     <input class="btn btn-primary" type="submit" value="Añadir">
                                                 </form>
                                             </td>
-                                           
+
                                             <?php
                                             if ($_SESSION["rol"] == "admin") { ?>
-                                            <td class="align-middle text-center">
-                                                <form action="" method="POST">
-                                                    <input type="hidden" value="<?php echo $producto->idProducto ?>" name="id_Producto">
-                                                    <input class="btn btn-primary" type="submit" value="Eliminar">
-                                                </form>
-                                            </td>                           
+                                                <td class="align-middle text-center">
+                                                    <form action="" method="POST">
+                                                        <input type="hidden" value="<?php echo $producto->idProducto ?>" name="id_Producto">
+                                                        <input type="hidden" name="accion" value="borrar">
+                                                        <input class="btn btn-primary" type="submit" value="Eliminar" name="eliminar">
+                                                    </form>
+                                                </td>
+
                                             <?php } ?>
 
                                         </tr>
-                                        <?php } ?>
+                                    <?php } ?>
                                 </tbody>
                             </table>
                         </div>
